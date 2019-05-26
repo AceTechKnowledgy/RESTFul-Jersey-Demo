@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.MatrixParam;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -26,7 +27,7 @@ public class TestResource {
 	}
 	
 	/*When the URI<contextpath/test/students> is requested as GET, this method will be called and return(produces)
-	 *all the students to the client as a JSON format.
+	 *all the students to the client as a JSON Object.
 	*/
 	@GET
 	@Path("/students")
@@ -67,6 +68,20 @@ public class TestResource {
 	@Path("/query")
 	@Produces(MediaType.APPLICATION_XML)
 	public String insertQuery(@QueryParam("id") int id, @QueryParam("name") String name) {
+		System.out.println("Id: "+id + " Name: "+name);
 		return "<result><status>success</status></result>";
+	}
+	
+	/* When the URI<ontextpath/test/matrix> is requested as GET, the client will pass the input data delimited by ; and will
+	 * receive the inputs in server as "MatrixParam" and will manipulate these inputs and will return the results
+	 * to the client as a JSON text.
+	 * Eg URL. http://localhost:8080/Rest-Jersey-Demo/rs/test/matrix;id=100;name=Siva
+	 */
+	@GET
+	@Path("/matrix")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String insertMatrix(@MatrixParam("id") int id, @MatrixParam("name") String name) {
+		System.out.println("Id: "+id + " Name: "+name);
+		return "{\"status\":\"success\"}";
 	}
 }
