@@ -3,8 +3,10 @@ package com.ace.restdemo.test;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.MatrixParam;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -83,5 +85,16 @@ public class TestResource {
 	public String insertMatrix(@MatrixParam("id") int id, @MatrixParam("name") String name) {
 		System.out.println("Id: "+id + " Name: "+name);
 		return "{\"status\":\"success\"}";
+	}
+	
+	/*When the Submit button is pressed in RegForm.html page, this method will be called by sending all the inputs.
+	 * And this will return as html page about the status
+	*/
+	@Path("/form")
+	@POST
+	@Produces(MediaType.TEXT_HTML)
+	public String insertForm(@FormParam("id") int id, @FormParam("name") String name) {
+		System.out.println("Id: "+id + " Name: "+name);
+		return "<html><body><h1>Success</h1></body></html>";
 	}
 }
