@@ -7,6 +7,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.ace.restdemo.model.Test;
@@ -45,15 +46,27 @@ public class TestResource {
 	/* When the URI<ontextpath/test/insertdata> is requested as GET, the client will pass the input data and will
 	 * receive the inputs in server as "PathParam" and will manipulate these inputs and will return the results
 	 * to the client as a plain text.
+	 * Eg URL. http://localhost:8080/Rest-Jersey-Demo/rs/test/insertdata/100/Siva
 	 */
 	@GET
 	@Path("/insertdata/{id}/{name}")
 	@Produces(MediaType.TEXT_PLAIN)
-	public String insertData(@PathParam("id") int id,
-							 @PathParam("name") String name) {
+	public String insertPath(@PathParam("id") int id, @PathParam("name") String name) {
 		return "Inserted data Successfully \n" +
 			   "************************** \n" +
 			   "Id: " +id                      +
 			   "\nName: "+name;
+	}
+	
+	/* When the URI<ontextpath/test/query> is requested as GET, the client will pass the input data delimited by & and will
+	 * receive the inputs in server as "QueryParam" and will manipulate these inputs and will return the results
+	 * to the client as a XML text.
+	 * Eg URL. http://localhost:8080/Rest-Jersey-Demo/rs/test/query?id=1&name=Siva
+	 */
+	@GET
+	@Path("/query")
+	@Produces(MediaType.APPLICATION_XML)
+	public String insertQuery(@QueryParam("id") int id, @QueryParam("name") String name) {
+		return "<result><status>success</status></result>";
 	}
 }
