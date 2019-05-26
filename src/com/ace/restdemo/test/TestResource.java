@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -39,5 +40,20 @@ public class TestResource {
 		students.add(new Test(5, "Surya"));
 		
 		return students;
+	}
+	
+	/* When the URI<ontextpath/test/insertdata> is requested as GET, the client will pass the input data and will
+	 * receive the inputs in server as "PathParam" and will manipulate these inputs and will return the results
+	 * to the client as a plain text.
+	 */
+	@GET
+	@Path("/insertdata/{id}/{name}")
+	@Produces(MediaType.TEXT_PLAIN)
+	public String insertData(@PathParam("id") int id,
+							 @PathParam("name") String name) {
+		return "Inserted data Successfully \n" +
+			   "************************** \n" +
+			   "Id: " +id                      +
+			   "\nName: "+name;
 	}
 }
